@@ -73,17 +73,17 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.books)
-    let books = this.state.books.map((book) => (
-      <Carousel.Item key={book._id}>
-            <h2>{book.title}</h2>
-            <p className="book-desc">{book.description}</p>
-     
-        <Button variant="danger" onClick={() => this.deleteBook(book)}>
-          Delete Book
-        </Button>
-      </Carousel.Item>
-    ));
+    let books = this.state.books.map((book) => {
+      return (
+        <Carousel.Item key={book._id}>
+          <h2>{book.title}</h2>
+          <p className="book-desc">{book.description}</p>
+          <Button variant="danger" onClick={() => this.deleteBook(book)}>
+            Delete Book
+          </Button>
+        </Carousel.Item>
+      );
+    });
     return (
       <>
         <Header />
