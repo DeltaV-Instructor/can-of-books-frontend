@@ -6,7 +6,7 @@ import "./components/Books.js";
 
 import Button from "react-bootstrap/Button";
 import CreateBook from "./components/CreateBook.js";
-import "./components/About/About.js";
+import About from "./components/About/About.js";
 
 let SERVER = process.env.REACT_APP_SERVER;
 
@@ -99,6 +99,11 @@ class App extends React.Component {
 
           <CreateBook handleBookSubmit={this.handleBookSubmit} />
         </section>
+
+
+
+
+        <About />
       </>
     );
   }
