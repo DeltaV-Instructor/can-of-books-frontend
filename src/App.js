@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Carousel from "react-bootstrap/Carousel";
-import "./css/app.css";
+import "./css/App.css";
 import "./components/Books.js";
 
 import Button from "react-bootstrap/Button";
@@ -87,7 +87,7 @@ class App extends React.Component {
     return (
       <>
         <Header />
-        <section>
+        <section className="section-background">
           <main className="carousel-container">
             {this.state.books.length > 0 ? (
               <Carousel>{books}</Carousel>
