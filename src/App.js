@@ -1,12 +1,13 @@
 import React from "react";
 import axios from "axios";
 import Carousel from "react-bootstrap/Carousel";
-import ".css/app.css";
+import "./css/app.css";
 import "./components/Books.js";
 
 import Button from "react-bootstrap/Button";
 import CreateBook from "./components/CreateBook.js";
 import About from "./components/About/About.js";
+import Header from "./components/Header/Header.js";
 
 let SERVER = process.env.REACT_APP_SERVER;
 
@@ -85,10 +86,8 @@ class App extends React.Component {
     ));
     return (
       <>
+        <Header />
         <section>
-          <header>
-            <h1>Good Reads</h1>
-          </header>
           <main className="carousel-container">
             {this.state.books.length > 0 ? (
               <Carousel>{books}</Carousel>
@@ -99,11 +98,6 @@ class App extends React.Component {
 
           <CreateBook handleBookSubmit={this.handleBookSubmit} />
         </section>
-
-
-
-
-        <About />
       </>
     );
   }
