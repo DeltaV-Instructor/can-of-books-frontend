@@ -52,20 +52,18 @@ class App extends React.Component {
     }
   };
 
-  // deleteBook = async (bookToDelete) => {
-  //   try {
-  //     let url = `${SERVER}/books/${bookToDelete._id}`;
-  //     await axios.delete(url);
-  //     let updatedBooks = this.state.books.filter(
-  //       (book) => book._id !== bookToDelete._id
-  //     );
-  //     this.setState({
-  //       books: updatedBooks,
-  //     });
-  //   } catch (error) {
-  //     console.log("We have an error: ", error.response.data);
-  //   }
-  // };
+  deleteBook = async (bookToDelete) => {
+    try {
+      let url = `${SERVER}/books/${bookToDelete._id}`;
+      await axios.delete(url);
+      let updatedBooks = this.state.books.filter((book) => book._id !== bookToDelete._id);
+      this.setState({
+        books: updatedBooks,
+      });
+    } catch (error) {
+      console.log("We have an error: ", error.response.data);
+    }
+  };
 
   componentDidMount() {
     this.getBooks();
