@@ -44,7 +44,6 @@ class App extends React.Component {
     try {
       let url = `${SERVER}/books`;
       let createdBook = await axios.post(url, newBookObject);
-      console.log("createdBook", createdBook);
       this.setState({
         books: [...this.state.books, createdBook.data],
       });
@@ -54,14 +53,12 @@ class App extends React.Component {
   };
 
   deleteBook = async (bookToDelete) => {
-    console.log("we here!", bookToDelete);
     try {
       let url = `${SERVER}/books/${bookToDelete._id}`;
       await axios.delete(url);
       let updatedBooks = this.state.books.filter(
         (book) => book._id !== bookToDelete._id
       );
-
       this.setState({
         books: updatedBooks,
       });
