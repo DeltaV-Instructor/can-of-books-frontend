@@ -1,18 +1,14 @@
 import React from "react";
 import axios from "axios";
 import Carousel from "react-bootstrap/Carousel";
-import "./App.css";
-import "./books";
-import Button from 'react-bootstrap/Button';
+import ".css/app.css";
+import "./components/Books.js";
 
-import CreateBook from './components/CreateBook';
-// import Button from 'react-bootstrap/Button';
-import "./components/About.js";
-// import Nav from "./Nav";
+import Button from "react-bootstrap/Button";
+import CreateBook from "./components/CreateBook.js";
+import "./components/About/About.js";
 
 let SERVER = process.env.REACT_APP_SERVER;
-//add comment
-
 
 class App extends React.Component {
   constructor(props) {
@@ -25,7 +21,6 @@ class App extends React.Component {
   getBooks = async () => {
     try {
       let results = await axios.get(`${SERVER}/books`);
-      // console.log("results from API", results);
       this.setState({
         books: results.data,
       });
@@ -34,12 +29,7 @@ class App extends React.Component {
     }
   };
 
-  handleButtonClick = () => {
-    console.log("Button clicked");
-  };
-  ///////////
   handleBookSubmit = async (event) => {
-
     event.preventDefault();
 
     let newBook = {
@@ -47,57 +37,54 @@ class App extends React.Component {
       description: event.target.description.value,
       status: event.target.status.checked,
     };
-    // console.log('!!!!!!!!!!!',newBook);
     this.postBook(newBook);
   };
-  ///////////
-  postBook = async (newBookObject) => {
-    console.log("🚀 ~ file: App.js:53 ~ App ~ postBook= ~ newBookObject", newBookObject)
 
+  postBook = async (newBookObject) => {
     try {
       let url = `${SERVER}/books`;
       let createdBook = await axios.post(url, newBookObject);
-      console.log('createdBook', createdBook);
+      console.log("createdBook", createdBook);
       this.setState({
         books: [...this.state.books, createdBook.data],
       });
     } catch (error) {
-      console.log('We have an error: ', error.response.data);
+      console.log("We have an error: ", error.response.data);
     }
   };
 
   deleteBook = async (bookToDelete) => {
-    console.log('we here!', bookToDelete)
+    console.log("we here!", bookToDelete);
     try {
       let url = `${SERVER}/books/${bookToDelete._id}`;
       await axios.delete(url);
-      let updatedBooks = this.state.books.filter((book) => book._id !== bookToDelete._id);
-      
+      let updatedBooks = this.state.books.filter(
+        (book) => book._id !== bookToDelete._id
+      );
+
       this.setState({
-         books: updatedBooks
-         });
+        books: updatedBooks,
+      });
     } catch (error) {
-      console.log('We have an error: ', error.response.data);
+      console.log("We have an error: ", error.response.data);
     }
   };
-
 
   componentDidMount() {
     this.getBooks();
   }
 
   render() {
-    console.log('yyyyyyyy',this.state.books);
-
     let books = this.state.books.map((book) => (
       <Carousel.Item key={book._id}>
         {/* <Carousel.Caption> */}
-          <h2>{book.title}</h2>
-          <p>{book.description}</p>
-          <Button variant="danger" onClick={() => this.deleteBook(book)}>Delete Book</Button>
+        <h2>{book.title}</h2>
+        <p>{book.description}</p>
+        <Button variant="danger" onClick={() => this.deleteBook(book)}>
+          Delete Book
+        </Button>
         {/* </Carousel.Caption> */}
       </Carousel.Item>
-
     ));
     return (
       <>
@@ -106,27 +93,18 @@ class App extends React.Component {
             <h1>Good Reads</h1>
           </header>
           <main className="carousel-container">
-            {this.state.books.length > 0 ? (<Carousel>{books}</Carousel>) : (<p>The book collection is empty.</p>)}
-
-          
-
+            {this.state.books.length > 0 ? (
+              <Carousel>{books}</Carousel>
+            ) : (
+              <p>The book collection is empty.</p>
+            )}
           </main>
 
-          {/* <CreateBook /> */}
-          <CreateBook
-            handleBookSubmit={this.handleBookSubmit}
-          />
-
-
-
+          <CreateBook handleBookSubmit={this.handleBookSubmit} />
         </section>
       </>
     );
   }
 }
 
-
-
 export default App;
-
-
